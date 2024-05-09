@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <ul id="leaderboard"></ul>
+
+    <script>
+        $(document).ready(function() {
+            Tabletop.init({
+                key: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTi_NzYjYZl5EUWm7UErklKp-oTFBpXvQOyVKgL3iIU498BqJ-noi6ck9Oo1ZT-X3zZTguANhWoOfiR/pubhtml',
+                callback: function(data, tabletop) {
+                    // Assuming data is an array of objects with 'name' and 'score' properties
+                    data.sort((a, b) => b.score - a.score); // Sort by score
+
+                    data.forEach(function(entry, index) {
+                        $('#leaderboard').append('<li>' + (index + 1) + '. ' + entry.name + ' - ' + entry.score + '</li>');
+                    });
+                },
+                simpleSheet: true
+            });
+        });
+    </script>
+</body>
+</html>
